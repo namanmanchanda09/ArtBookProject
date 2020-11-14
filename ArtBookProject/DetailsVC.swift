@@ -14,8 +14,25 @@ class DetailsVC: UIViewController, UIImagePickerControllerDelegate & UINavigatio
     @IBOutlet var artistName: UITextField!
     @IBOutlet var yearName: UITextField!
     
+    var choosenPainting = ""
+    var choosenPaintingId : UUID?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if choosenPainting != ""{
+            // Core Data Retrieval for a particular id
+            let stringUUID = choosenPaintingId?.uuidString
+            print(stringUUID!)
+            
+            
+            
+        }else{
+            nameText.text = ""
+            artistName.text = ""
+            yearName.text = ""
+            
+        }
         
         imageView.isUserInteractionEnabled = true
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(hidekeyboard))

@@ -13,6 +13,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet var tableView: UITableView!
     var nameArray = [String]()
     var idArray = [UUID]()
+    var selectedPainting = ""
+    var selectedPaintingId : UUID?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +28,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     @objc func addButtonClicked(){
+        selectedPainting = ""
         performSegue(withIdentifier: "toDetailsVC", sender: nil)
     }
     
@@ -60,12 +63,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             print("error")
             
         }
-        
-        
     }
     
-    
-    // MARK: - Table View Delegate Methods
+    // MARK: - Table View Data Source Methods
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return nameArray.count
     }
@@ -76,6 +76,22 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         
         return cell
+    }
+    
+    // MARK: - Table View Delegate Methods
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toDetailsVC"{
+            let destinationVC = segue.destination as! DetailsVC
+            destinationVC.choosenPainting = selectedPainting
+            destinationVC.choosenPaintingId = selectedPaintingId
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectedPainting = nameArray[indexPath.row]
+        selectedPaintingId = idArray[indexPath.row]
+        
+        performSegue(withIdentifier: "toDetailsVC", sender: nil)
     }
 }
 
