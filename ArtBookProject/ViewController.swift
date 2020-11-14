@@ -29,8 +29,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         performSegue(withIdentifier: "toDetailsVC", sender: nil)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        NotificationCenter.default.addObserver(self, selector: #selector(getData), name: NSNotification.Name(rawValue : "newData"), object: nil)
+    }
+    
     // MARK: - Getting data from Database using Core Data
-    func getData(){
+    @objc func getData(){
+        nameArray.removeAll(keepingCapacity: false)
+        idArray.removeAll(keepingCapacity: false)
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
@@ -46,12 +52,16 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     idArray.append(id)
                 }
             }
+            
             self.tableView.reloadData()
             
             
         }catch{
             print("error")
+            
         }
+        
+        
     }
     
     
