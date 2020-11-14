@@ -55,20 +55,10 @@ class DetailsVC: UIViewController, UIImagePickerControllerDelegate & UINavigatio
             }catch{
                 print("error while fetching")
             }
-            
-            
-            
-            
-            
-            
-            
-             
-            
         }else{
             nameText.text = ""
             artistName.text = ""
             yearName.text = ""
-            
         }
         
         imageView.isUserInteractionEnabled = true
@@ -87,14 +77,15 @@ class DetailsVC: UIViewController, UIImagePickerControllerDelegate & UINavigatio
         present(picker, animated: true, completion: nil)
     }
     
+    @objc func hidekeyboard(){
+        view.endEditing(true)
+    }
+    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         imageView.image = info[.originalImage] as? UIImage
         self.dismiss(animated: true, completion: nil)
     }
     
-    @objc func hidekeyboard(){
-        view.endEditing(true)
-    }
     
     @IBAction func saveButtonClicked(_ sender: UIButton) {
         
@@ -123,6 +114,10 @@ class DetailsVC: UIViewController, UIImagePickerControllerDelegate & UINavigatio
         self.navigationController?.popViewController(animated: true)
         
     }
+    
+    
+    
+    
 
 }
 
