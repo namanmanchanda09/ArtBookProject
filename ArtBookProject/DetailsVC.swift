@@ -13,6 +13,8 @@ class DetailsVC: UIViewController, UIImagePickerControllerDelegate & UINavigatio
     @IBOutlet var nameText: UITextField!
     @IBOutlet var artistName: UITextField!
     @IBOutlet var yearName: UITextField!
+    @IBOutlet var saveButton: UIButton!
+    
     
     var choosenPainting = ""
     var choosenPaintingId : UUID?
@@ -22,6 +24,7 @@ class DetailsVC: UIViewController, UIImagePickerControllerDelegate & UINavigatio
         
         if choosenPainting != ""{
             // Core Data Retrieval for a particular id
+            saveButton.isHidden = true
             
             let appDelegate = UIApplication.shared.delegate as! AppDelegate
             let context = appDelegate.persistentContainer.viewContext
@@ -56,6 +59,7 @@ class DetailsVC: UIViewController, UIImagePickerControllerDelegate & UINavigatio
                 print("error while fetching")
             }
         }else{
+            saveButton.isHidden = false
             nameText.text = ""
             artistName.text = ""
             yearName.text = ""
